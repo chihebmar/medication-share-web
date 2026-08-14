@@ -1,0 +1,71 @@
+<header class="header">
+  <div class="header-container">
+    <!-- Brand -->
+    <a class="brand" routerLink="/">
+      <div class="brand-icon">
+        <lucide-icon [img]="HeartHandshake" [size]="24" [strokeWidth]="2"> </lucide-icon>
+      </div>
+
+      <div class="brand-text">
+        <span class="brand-name"> Medi<span>Share</span> </span>
+
+        <small>
+          {{ 'header.tagline' | translate }}
+        </small>
+      </div>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        {{ 'header.home' | translate }}
+      </a>
+
+      <!-- <a routerLink="/announcements" routerLinkActive="active">
+        {{ 'header.announcements' | translate }}
+      </a>
+
+      <a href="#how-it-works">
+        {{ 'header.howItWorks' | translate }}
+      </a>
+
+      <a href="#about">
+        {{ 'header.about' | translate }}
+      </a>
+
+      <a href="#contact">
+        {{ 'header.contact' | translate }}
+      </a> -->
+    </nav>
+
+    <!-- Right actions -->
+    <div class="header-actions">
+      <!-- Language -->
+      <div class="language-switcher">
+        <button type="button" [class.active]="currentLanguage === 'fr'" (click)="setLanguage('fr')">
+          FR
+        </button>
+
+        <span>|</span>
+
+        <button type="button" [class.active]="currentLanguage === 'en'" (click)="setLanguage('en')">
+          EN
+        </button>
+      </div>
+
+      <!-- Theme -->
+      <button class="theme-button" type="button" aria-label="Changer le th?me">
+        <lucide-icon [img]="Moon" [size]="20" [strokeWidth]="2"> </lucide-icon>
+      </button>
+
+      <!-- Publish -->
+      <a class="publish-button" routerLink="/announcements/new">
+        <lucide-icon [img]="PlusCircle" [size]="18" [strokeWidth]="2"> </lucide-icon>
+
+        <span class="publish-text">
+          {{ 'header.publish' | translate }}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>

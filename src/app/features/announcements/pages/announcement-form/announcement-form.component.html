@@ -1,0 +1,345 @@
+<section class="form-page">
+
+  <div class="form-page-container">
+
+    <!-- PAGE HEADER -->
+    <header class="form-header">
+
+      <span class="form-eyebrow">
+        {{ 'announcementForm.eyebrow' | translate }}
+      </span>
+
+      <h1>
+        {{ 'announcementForm.title' | translate }}
+      </h1>
+
+      <p>
+        {{ 'announcementForm.subtitle' | translate }}
+      </p>
+
+    </header>
+
+
+    <!-- GLOBAL ERROR -->
+    @if (error()) {
+      <div class="alert alert-error">
+        {{ 'announcementForm.errors.generic' | translate }}
+      </div>
+    }
+
+
+    <!-- REFERENCES LOADING -->
+    @if (loadingReferences()) {
+
+      <div class="loading-state">
+        {{ 'announcementForm.loading' | translate }}
+      </div>
+
+    } @else {
+
+      <form
+        class="announcement-form"
+        [formGroup]="form"
+        (ngSubmit)="submit()">
+
+        <!-- TYPE -->
+        <section class="form-section">
+
+          <div class="section-header">
+            <span class="step-number">1</span>
+
+            <div>
+              <h2>
+                {{ 'announcementForm.type.title' | translate }}
+              </h2>
+
+              <p>
+                {{ 'announcementForm.type.subtitle' | translate }}
+              </p>
+            </div>
+          </div>
+
+          <div class="type-grid">
+
+            @for (type of announcementTypes(); track type.code) {
+
+              <button
+                type="button"
+                class="type-card"
+                [class.selected]="form.controls.typeCode.value === type.code"
+                (click)="selectType(type.code)">
+
+                <div class="type-icon">
+
+                  @if (type.code === 'ANNOUNCEMENT_OFFER') {
+
+                    <lucide-icon
+                      [img]="Gift"
+                      [size]="25"
+                      [strokeWidth]="2">
+                    </lucide-icon>
+
+                  } @else {
+
+                    <lucide-icon
+                      [img]="Search"
+                      [size]="25"
+                      [strokeWidth]="2">
+                    </lucide-icon>
+
+                  }
+
+                </div>
+
+                <div class="type-content">
+
+                  <strong>
+                    @if (type.code === 'ANNOUNCEMENT_OFFER') {
+                      {{ 'announcementForm.type.offer' | translate }}
+                    } @else {
+                      {{ 'announcementForm.type.need' | translate }}
+                    }
+                  </strong>
+
+                  <span>
+                    @if (type.code === 'ANNOUNCEMENT_OFFER') {
+                      {{ 'announcementForm.type.offerDescription' | translate }}
+                    } @else {
+                      {{ 'announcementForm.type.needDescription' | translate }}
+                    }
+                  </span>
+
+                </div>
+
+              </button>
+
+            }
+
+          </div>
+
+          @if (
+            form.controls.typeCode.touched &&
+            form.controls.typeCode.invalid
+          ) {
+            <p class="field-error">
+              {{ 'announcementForm.validation.typeRequired' | translate }}
+            </p>
+          }
+
+        </section>
+
+
+        <!-- INFORMATION -->
+        <section class="form-section">
+
+          <div class="section-header">
+            <span class="step-number">2</span>
+
+            <div>
+              <h2>
+                {{ 'announcementForm.information.title' | translate }}
+              </h2>
+
+              <p>
+                {{ 'announcementForm.information.subtitle' | translate }}
+              </p>
+            </div>
+          </div>
+
+
+          <div class="fields-grid">
+
+            <!-- MEDICATION -->
+            <div class="form-field field-full">
+
+              <label for="medicationName">
+                {{ 'announcementForm.medication.label' | translate }}
+
+                <span class="required">*</span>
+              </label>
+
+              <input
+                id="medicationName"
+                type="text"
+                formControlName="medicationName"
+                [placeholder]="'announcementForm.medication.placeholder' | translate">
+
+              @if (
+                form.controls.medicationName.touched &&
+                form.controls.medicationName.hasError('required')
+              ) {
+                <p class="field-error">
+                  {{ 'announcementForm.validation.medicationRequired' | translate }}
+                </p>
+              }
+
+              @if (
+                form.controls.medicationName.touched &&
+                form.controls.medicationName.hasError('maxlength')
+              ) {
+                <p class="field-error">
+                  {{ 'announcementForm.validation.medicationMaxLength' | translate }}
+                </p>
+              }
+
+            </div>
+
+
+            <!-- GOVERNORATE -->
+            <div class="form-field">
+
+              <label for="governorate">
+                {{ 'announcementForm.governorate.label' | translate }}
+
+                <span class="required">*</span>
+              </label>
+
+              <select
+                id="governorate"
+                formControlName="governorateCode">
+
+                <option value="" disabled>
+                  {{ 'announcementForm.governorate.placeholder' | translate }}
+                </option>
+
+                @for (
+                  governorate of governorates();
+                  track governorate.code
+                ) {
+                  <option [value]="governorate.code">
+                    {{ governorate.label }}
+                  </option>
+                }
+
+              </select>
+
+              @if (
+                form.controls.governorateCode.touched &&
+                form.controls.governorateCode.invalid
+              ) {
+                <p class="field-error">
+                  {{ 'announcementForm.validation.governorateRequired' | translate }}
+                </p>
+              }
+
+            </div>
+
+
+            <!-- PHONE -->
+            <div class="form-field">
+
+              <label for="phoneNumber">
+                {{ 'announcementForm.phone.label' | translate }}
+
+                <span class="required">*</span>
+              </label>
+
+              <input
+                id="phoneNumber"
+                type="tel"
+                inputmode="tel"
+                formControlName="phoneNumber"
+                [placeholder]="'announcementForm.phone.placeholder' | translate">
+
+              @if (
+                form.controls.phoneNumber.touched &&
+                form.controls.phoneNumber.hasError('required')
+              ) {
+                <p class="field-error">
+                  {{ 'announcementForm.validation.phoneRequired' | translate }}
+                </p>
+              }
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+            <div class="form-field field-full">
+
+              <div class="label-row">
+
+                <label for="description">
+                  {{ 'announcementForm.description.label' | translate }}
+                </label>
+
+                <span class="optional">
+                  {{ 'announcementForm.optional' | translate }}
+                </span>
+
+              </div>
+
+              <textarea
+                id="description"
+                rows="5"
+                formControlName="description"
+                [placeholder]="'announcementForm.description.placeholder' | translate">
+              </textarea>
+
+              <div class="field-footer">
+
+                <span>
+                  {{ 'announcementForm.description.help' | translate }}
+                </span>
+
+                <span>
+                  {{ form.controls.description.value.length }}/1000
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            [disabled]="loading()"
+            (click)="router.navigate(['/announcements'])">
+
+            {{ 'announcementForm.cancel' | translate }}
+
+          </button>
+
+          <button
+            type="submit"
+            class="submit-button"
+            [disabled]="loading()">
+
+            @if (loading()) {
+
+              <span>
+                {{ 'announcementForm.publishing' | translate }}
+              </span>
+
+            } @else {
+
+              <lucide-icon
+                [img]="Send"
+                [size]="18"
+                [strokeWidth]="2">
+              </lucide-icon>
+
+              <span>
+                {{ 'announcementForm.publish' | translate }}
+              </span>
+
+            }
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </div>
+
+</section>

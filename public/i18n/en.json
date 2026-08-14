@@ -1,0 +1,95 @@
+{
+  "header": {
+    "tagline": "Sharing for everyone's health",
+    "home": "Home",
+    "announcements": "Listings",
+    "howItWorks": "How it works",
+    "about": "About",
+    "contact": "Contact",
+    "publish": "Post a listing"
+  },
+  "announcements": {
+    "title": "Medication listings",
+    "subtitle": "Find or offer medication through community sharing",
+    "search": "I'm looking",
+    "give": "I'm giving",
+    "offer": "Offer",
+    "need": "Request",
+    "allGovernorates": "All governorates",
+    "searchButton": "Search",
+    "noResults": "No listings available",
+    "searchPlaceholder": "Search for a medication...",
+    "offers": "Offers",
+    "needs": "Requests",
+    "results": "listing(s) found",
+    "governorate": "Governorate",
+    "phone": "Phone",
+    "details": "View details",
+
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page"
+    }
+    
+  },
+  "announcementForm": {
+  "eyebrow": "New listing",
+  "title": "Post a listing",
+  "subtitle": "Share an available medication or let the community know what medication you need.",
+
+  "loading": "Loading form...",
+  "optional": "Optional",
+
+  "type": {
+    "title": "What type of listing would you like to post?",
+    "subtitle": "Choose the option that matches your situation.",
+    "offer": "I'm giving",
+    "need": "I'm looking",
+    "offerDescription": "I have medication that I would like to offer.",
+    "needDescription": "I'm looking for medication that I need."
+  },
+
+  "information": {
+    "title": "Listing information",
+    "subtitle": "Provide the information needed to publish your listing."
+  },
+
+  "medication": {
+    "label": "Medication name",
+    "placeholder": "E.g. Doliprane 1000 mg"
+  },
+
+  "governorate": {
+    "label": "Governorate",
+    "placeholder": "Select a governorate"
+  },
+
+  "phone": {
+    "label": "Phone number",
+    "placeholder": "E.g. 22 123 456"
+  },
+
+  "description": {
+    "label": "Description",
+    "placeholder": "Add some useful information about the medication...",
+    "help": "Only provide information relevant to the listing."
+  },
+
+  "validation": {
+    "typeRequired": "Please select a listing type.",
+    "medicationRequired": "Medication name is required.",
+    "medicationMaxLength": "Medication name is too long.",
+    "governorateRequired": "Please select a governorate.",
+    "phoneRequired": "Phone number is required."
+  },
+
+  "errors": {
+    "generic": "Something went wrong. Please try again."
+  },
+
+  "cancel": "Cancel",
+  "publish": "Post listing",
+  "publishing": "Publishing..."
+}
+}

@@ -1,0 +1,97 @@
+{
+  "header": {
+    "tagline": "Partageons pour la santé de tous",
+    "home": "Accueil",
+    "announcements": "Annonces",
+    "howItWorks": "Comment ça marche",
+    "about": "À propos",
+    "contact": "Contact",
+    "publish": "Publier une annonce"
+  },
+  "announcements": {
+    "title": "Annonces de médicaments",
+    "subtitle": "Trouvez ou proposez des médicaments en toute solidarité",
+    "search": "Je cherche",
+    "give": "Je donne",
+    "offer": "Offre",
+    "need": "Besoin",
+    "allGovernorates": "Tous les gouvernorats",
+    "searchButton": "Rechercher",
+    "noResults": "Aucune annonce disponible",
+    "searchPlaceholder": "Rechercher un médicament...",
+    "offers": "Offres",
+    "needs": "Besoins",
+    "results": "annonce(s) trouvée(s)",
+    "governorate": "Gouvernorat",
+    "phone": "Téléphone",
+    "details": "Voir les détails",
+
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "page": "Page"
+    }
+    
+  },
+
+  "announcementForm": {
+  "eyebrow": "Nouvelle annonce",
+  "title": "Publier une annonce",
+  "subtitle": "Partagez un médicament disponible ou indiquez un médicament dont vous avez besoin.",
+
+  "loading": "Chargement du formulaire...",
+  "optional": "Optionnel",
+
+  "type": {
+    "title": "Quel type d'annonce souhaitez-vous publier ?",
+    "subtitle": "Choisissez l'option qui correspond à votre situation.",
+    "offer": "Je donne",
+    "need": "Je cherche",
+    "offerDescription": "Je dispose d'un médicament que je souhaite proposer.",
+    "needDescription": "Je recherche un médicament dont j'ai besoin."
+  },
+
+  "information": {
+    "title": "Informations de l'annonce",
+    "subtitle": "Renseignez les informations nécessaires pour publier votre annonce."
+  },
+
+  "medication": {
+    "label": "Nom du médicament",
+    "placeholder": "Ex. Doliprane 1000 mg"
+  },
+
+  "governorate": {
+    "label": "Gouvernorat",
+    "placeholder": "Sélectionnez un gouvernorat"
+  },
+
+  "phone": {
+    "label": "Numéro de téléphone",
+    "placeholder": "Ex. 22 123 456"
+  },
+
+  "description": {
+    "label": "Description",
+    "placeholder": "Ajoutez quelques informations utiles concernant le médicament...",
+    "help": "N'indiquez que les informations utiles à l'annonce."
+  },
+
+  "validation": {
+    "typeRequired": "Veuillez sélectionner un type d'annonce.",
+    "medicationRequired": "Le nom du médicament est obligatoire.",
+    "medicationMaxLength": "Le nom du médicament est trop long.",
+    "governorateRequired": "Veuillez sélectionner un gouvernorat.",
+    "phoneRequired": "Le numéro de téléphone est obligatoire."
+  },
+
+  "errors": {
+    "generic": "Une erreur est survenue. Veuillez réessayer."
+  },
+
+  "cancel": "Annuler",
+  "publish": "Publier l'annonce",
+  "publishing": "Publication..."
+}
+
+}

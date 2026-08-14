@@ -1,0 +1,266 @@
+<section class="announcements-page">
+  <div class="page-container">
+    <!-- Hero -->
+    <section class="announcements-hero">
+      <div class="hero-copy">
+        <h1>
+          {{ 'announcements.title' | translate }}
+        </h1>
+
+        <p>
+          {{ 'announcements.subtitle' | translate }}
+        </p>
+      </div>
+
+      <div class="mode-switch">
+        <button
+          type="button"
+          class="mode-button"
+          [class.active]="mode() === 'search'"
+          (click)="setMode('search')"
+        >
+          <lucide-icon [img]="Search" [size]="20" [strokeWidth]="2"> </lucide-icon>
+
+          <span>
+            {{ 'announcements.search' | translate }}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="mode-button"
+          [class.active]="mode() === 'give'"
+          (click)="setMode('give')"
+        >
+          <lucide-icon [img]="Gift" [size]="20" [strokeWidth]="2"> </lucide-icon>
+
+          <span>
+            {{ 'announcements.give' | translate }}
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Search & Filters -->
+    <section class="search-panel">
+      <div class="search-main">
+        <lucide-icon class="search-icon" [img]="Search" [size]="21" [strokeWidth]="2">
+        </lucide-icon>
+
+        <input
+          type="search"
+          [value]="searchTerm()"
+          (input)="onSearchChange($event)"
+          (keyup.enter)="applySearch()"
+          [placeholder]="'announcements.searchPlaceholder' | translate"
+          [attr.aria-label]="'announcements.searchPlaceholder' | translate"
+        />
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="governorate-filter">
+        <lucide-icon [img]="MapPin" [size]="19" [strokeWidth]="2"> </lucide-icon>
+
+        <select
+          [value]="selectedGovernorate()"
+          (change)="onGovernorateChange($event)"
+          [attr.aria-label]="'announcements.governorate' | translate"
+        >
+          <option value="">
+            {{ 'announcements.allGovernorates' | translate }}
+          </option>
+
+          @for (governorate of governorates(); track governorate.code) {
+            <option [value]="governorate.code">
+              {{ governorate.label }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="type-filter">
+        <lucide-icon [img]="SlidersHorizontal" [size]="19" [strokeWidth]="2"> </lucide-icon>
+
+        <span>
+          @if (mode() === 'search') {
+            {{ 'announcements.offers' | translate }}
+          } @else {
+            {{ 'announcements.needs' | translate }}
+          }
+        </span>
+      </div>
+
+      <button type="button" class="search-button" (click)="applySearch()">
+        <lucide-icon [img]="Search" [size]="18" [strokeWidth]="2"> </lucide-icon>
+
+        <span>
+          {{ 'announcements.searchButton' | translate }}
+        </span>
+      </button>
+    </section>
+
+    <!-- Loading -->
+    @if (loading()) {
+      <section class="state-section">
+        <p>
+          {{ 'announcements.loading' | translate }}
+        </p>
+      </section>
+    }
+
+    <!-- Error -->
+    @if (error()) {
+      <section class="state-section error-state">
+        <p>
+          {{ 'announcements.loadError' | translate }}
+        </p>
+      </section>
+    }
+
+    <!-- Content -->
+    @if (!loading() && !error()) {
+      <section class="announcements-content">
+        <div class="content-header">
+          <p class="result-count">
+            {{ totalElements() }}
+            {{ 'announcements.results' | translate }}
+          </p>
+        </div>
+
+        <div class="announcement-grid">
+          @for (announcement of announcements(); track announcement.id) {
+            <article class="announcement-card">
+              <div class="card-top">
+                <span
+                  class="type-badge"
+                  [class.offer]="announcement.type.code === 'ANNOUNCEMENT_OFFER'"
+                  [class.need]="announcement.type.code === 'ANNOUNCEMENT_REQUEST'"
+                >
+                  {{ announcement.type.label }}
+                </span>
+
+                <div class="publication-date">
+                  <lucide-icon [img]="CalendarDays" [size]="15" [strokeWidth]="2"> </lucide-icon>
+
+                  <span>
+                    {{ announcement.createdAt | date: 'dd/MM/yyyy' }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="card-content">
+                <h2>
+                  {{ announcement.medicationName }}
+                </h2>
+
+                <div class="card-meta">
+                  <div class="meta-item">
+                    <lucide-icon [img]="MapPin" [size]="17" [strokeWidth]="2"> </lucide-icon>
+
+                    <span>
+                      {{ announcement.governorate.label }}
+                    </span>
+                  </div>
+
+                  <div class="meta-item">
+                    <lucide-icon [img]="Phone" [size]="17" [strokeWidth]="2"> </lucide-icon>
+
+                    <span>
+                      {{ announcement.phoneNumber }}
+                    </span>
+                  </div>
+                </div>
+
+                @if (announcement.description) {
+                  <p class="description">
+                    {{ announcement.description }}
+                  </p>
+                }
+              </div>
+
+              <!-- <div class="card-actions">
+
+    <button
+      type="button"
+      class="details-button">
+
+      <span>
+        {{ 'announcements.details' | translate }}
+      </span>
+
+      <lucide-icon
+        [img]="ArrowRight"
+        [size]="17"
+        [strokeWidth]="2">
+      </lucide-icon>
+
+    </button>
+
+  </div> -->
+            </article>
+          } @empty {
+            <div class="empty-state">
+              <p>
+                {{ 'announcements.noResults' | translate }}
+              </p>
+            </div>
+          }
+        </div>
+
+        <!-- PAGINATION ICI -->
+        @if (totalPages() > 1) {
+          <nav class="pagination">
+            <button
+              type="button"
+              class="pagination-nav"
+              [disabled]="currentPage() === 0"
+              (click)="goToPage(currentPage() - 1)"
+            >
+              <lucide-icon [img]="ChevronLeft" [size]="17" [strokeWidth]="2"></lucide-icon>
+
+              <span class="nav-label">
+                {{ 'announcements.pagination.previous' | translate }}
+              </span>
+            </button>
+
+            <div class="pagination-pages">
+              @for (page of [].constructor(totalPages()); track $index) {
+                <button
+                  type="button"
+                  class="page-button"
+                  [class.active]="$index === currentPage()"
+                  (click)="goToPage($index)"
+                >
+                  {{ $index + 1 }}
+                </button>
+              }
+            </div>
+
+            <div class="mobile-page-indicator">
+              {{ 'announcements.pagination.page' | translate }}
+              {{ currentPage() + 1 }}
+              /
+              {{ totalPages() }}
+            </div>
+
+            <button
+              type="button"
+              class="pagination-nav"
+              [disabled]="currentPage() === totalPages() - 1"
+              (click)="goToPage(currentPage() + 1)"
+            >
+              <span class="nav-label">
+                {{ 'announcements.pagination.next' | translate }}
+              </span>
+
+              <lucide-icon [img]="ChevronRight" [size]="17" [strokeWidth]="2"></lucide-icon>
+            </button>
+          </nav>
+        }
+      </section>
+    }
+  </div>
+</section>
