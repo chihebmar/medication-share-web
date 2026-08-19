@@ -92,6 +92,27 @@
   "cancel": "Annuler",
   "publish": "Publier l'annonce",
   "publishing": "Publication..."
+},
+"validation": {
+  "title": "Validation des annonces",
+  "subtitle": "Examinez les annonces avant leur publication",
+  "pending": "en attente",
+  "loading": "Chargement des annonces...",
+  "error": "Impossible de charger les annonces.",
+  "approve": "Approuver",
+  "reject": "Refuser",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "emptyTitle": "Tout est à jour",
+  "emptyDescription": "Aucune annonce n'est actuellement en attente de validation.",
+  "type": "Type",
+"medication": "Médicament",
+"governorate": "Gouvernorat",
+"phone": "Téléphone",
+"date": "Date",
+"actions": "Actions"
 }
+
+
 
 }

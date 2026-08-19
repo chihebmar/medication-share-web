@@ -91,5 +91,24 @@
   "cancel": "Cancel",
   "publish": "Post listing",
   "publishing": "Publishing..."
+},
+"validation": {
+  "title": "Listing validation",
+  "subtitle": "Review listings before they are published",
+  "pending": "pending",
+  "loading": "Loading listings...",
+  "error": "Unable to load listings.",
+  "approve": "Approve",
+  "reject": "Reject",
+  "previous": "Previous",
+  "next": "Next",
+  "emptyTitle": "You're all caught up",
+  "emptyDescription": "There are currently no listings waiting for validation.",
+  "type": "Type",
+"medication": "Medication",
+"governorate": "Governorate",
+"phone": "Phone",
+"date": "Date",
+"actions": "Actions"
 }
 }

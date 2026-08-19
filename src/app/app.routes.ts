@@ -16,5 +16,15 @@ export const routes: Routes = [
   {
     path: 'announcements/new',
     component: AnnouncementFormComponent
-  }
+  },
+  {
+  path: 'announcements/validation',
+  loadComponent: () =>
+    import(
+      './features/announcements/pages/announcement-validation/announcement-validation.component'
+    ).then(
+      m => m.AnnouncementValidationComponent
+    )
+}
+
 ];

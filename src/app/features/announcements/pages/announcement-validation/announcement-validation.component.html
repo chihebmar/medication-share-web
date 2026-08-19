@@ -1,0 +1,235 @@
+<div class="validation-page">
+  <div class="page-container">
+    <!-- HERO -->
+    <section class="validation-hero">
+      <div class="hero-copy">
+        <h1>
+          {{ 'validation.title' | translate }}
+        </h1>
+
+        <p>
+          {{ 'validation.subtitle' | translate }}
+        </p>
+      </div>
+
+      <div class="pending-counter">
+        <span class="counter-value">
+          {{ totalElements() }}
+        </span>
+
+        <span class="counter-label">
+          {{ 'validation.pending' | translate }}
+        </span>
+      </div>
+    </section>
+
+    <!-- LOADING -->
+    @if (loading()) {
+      <div class="state-container">
+        <p>
+          {{ 'validation.loading' | translate }}
+        </p>
+      </div>
+    }
+
+    <!-- ERROR -->
+    @if (!loading() && error()) {
+      <div class="state-container error-state">
+        <p>
+          {{ 'validation.error' | translate }}
+        </p>
+      </div>
+    }
+
+    <!-- CONTENT -->
+    @if (!loading() && !error()) {
+      @if (pendingAnnouncements().length > 0) {
+        <div class="validation-table-wrapper">
+          <table class="validation-table">
+            <thead>
+              <tr>
+                <th>
+                  {{ 'validation.type' | translate }}
+                </th>
+
+                <th>
+                  {{ 'validation.medication' | translate }}
+                </th>
+
+                <th>
+                  {{ 'validation.governorate' | translate }}
+                </th>
+
+                <th>
+                  {{ 'validation.phone' | translate }}
+                </th>
+
+                <th>
+                  {{ 'validation.date' | translate }}
+                </th>
+
+                <th class="actions-column">
+                  {{ 'validation.actions' | translate }}
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (announcement of pendingAnnouncements(); track announcement.id) {
+                <tr>
+                  <!-- TYPE -->
+                  <td [attr.data-label]="'validation.type' | translate">
+                    <span
+                      class="type-badge"
+                      [class.offer]="announcement.type.code === 'ANNOUNCEMENT_OFFER'"
+                      [class.need]="announcement.type.code === 'ANNOUNCEMENT_REQUEST'"
+                    >
+                      {{ announcement.type.label }}
+                    </span>
+                  </td>
+
+                  <!-- MEDICATION -->
+                  <td
+                    class="medication-cell"
+                    [attr.data-label]="'validation.medication' | translate"
+                  >
+                    <div class="medication-content">
+                      <strong>
+                        {{ announcement.medicationName }}
+                      </strong>
+
+                      @if (announcement.description) {
+                        <span class="medication-description">
+                          {{ announcement.description }}
+                        </span>
+                      }
+                    </div>
+                  </td>
+
+                  <!-- GOVERNORATE -->
+                  <td [attr.data-label]="'validation.governorate' | translate">
+                    <div class="table-info">
+                      <lucide-icon [img]="MapPin" [size]="16" [strokeWidth]="2" />
+
+                      <span>
+                        {{ announcement.governorate.label }}
+                      </span>
+                    </div>
+                  </td>
+
+                  <!-- PHONE -->
+                  <td [attr.data-label]="'validation.phone' | translate">
+                    <div class="table-info">
+                      <lucide-icon [img]="Phone" [size]="16" [strokeWidth]="2" />
+
+                      <span>
+                        {{ announcement.phoneNumber }}
+                      </span>
+                    </div>
+                  </td>
+
+                  <!-- DATE -->
+                  <td [attr.data-label]="'validation.date' | translate">
+                    <div class="table-info">
+                      <lucide-icon [img]="CalendarDays" [size]="16" [strokeWidth]="2" />
+
+                      <span>
+                        {{ announcement.createdAt | date: 'dd/MM/yyyy' }}
+                      </span>
+                    </div>
+                  </td>
+
+                  <!-- ACTIONS -->
+                  <td class="actions-cell" [attr.data-label]="'validation.actions' | translate">
+                    <button
+                      type="button"
+                      class="reject-button"
+                      [disabled]="processingId() !== null"
+                      (click)="rejectAnnouncement(announcement.id)"
+                    >
+                      <lucide-icon [img]="X" [size]="17" [strokeWidth]="2.2" />
+
+                      <span>
+                        {{ 'validation.reject' | translate }}
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="approve-button"
+                      [disabled]="processingId() !== null"
+                      (click)="approveAnnouncement(announcement.id)"
+                    >
+                      <lucide-icon [img]="Check" [size]="17" [strokeWidth]="2.2" />
+
+                      <span>
+                        {{ 'validation.approve' | translate }}
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PAGINATION -->
+        @if (totalPages() > 1) {
+          <nav class="pagination">
+            <button
+              type="button"
+              class="pagination-navigation"
+              [disabled]="currentPage() === 0"
+              (click)="goToPage(currentPage() - 1)"
+            >
+              {{ 'validation.previous' | translate }}
+            </button>
+
+            <div class="pagination-pages">
+              @for (page of [].constructor(totalPages()); track $index) {
+                <button
+                  type="button"
+                  class="page-button"
+                  [class.active]="$index === currentPage()"
+                  (click)="goToPage($index)"
+                >
+                  {{ $index + 1 }}
+                </button>
+              }
+            </div>
+
+            <span class="mobile-page-indicator">
+              {{ currentPage() + 1 }}
+              /
+              {{ totalPages() }}
+            </span>
+
+            <button
+              type="button"
+              class="pagination-navigation"
+              [disabled]="currentPage() === totalPages() - 1"
+              (click)="goToPage(currentPage() + 1)"
+            >
+              {{ 'validation.next' | translate }}
+            </button>
+          </nav>
+        }
+      } @else {
+        <!-- EMPTY -->
+        <div class="empty-state">
+          <div class="empty-icon">
+            <lucide-icon [img]="Check" [size]="30" [strokeWidth]="1.8" />
+          </div>
+
+          <h2>
+            {{ 'validation.emptyTitle' | translate }}
+          </h2>
+
+          <p>
+            {{ 'validation.emptyDescription' | translate }}
+          </p>
+        </div>
+      }
+    }
+  </div>
+</div>

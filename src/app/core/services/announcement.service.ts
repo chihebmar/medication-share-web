@@ -77,4 +77,57 @@ export class AnnouncementService {
       {}
     );
   }
+
+  getPending(
+  criteria: SearchAnnouncement,
+  page = 0,
+  size = 10
+): Observable<Page<Announcement>> {
+
+  let params = new HttpParams()
+    .set('page', page)
+    .set('size', size)
+    .set('sort', 'createdAt,desc');
+
+  if (criteria.medicationName) {
+    params = params.set(
+      'medicationName',
+      criteria.medicationName
+    );
+  }
+
+  if (criteria.typeCode) {
+    params = params.set(
+      'typeCode',
+      criteria.typeCode
+    );
+  }
+
+  if (criteria.governorateCode) {
+    params = params.set(
+      'governorateCode',
+      criteria.governorateCode
+    );
+  }
+
+  return this.http.get<Page<Announcement>>(
+    `${this.apiUrl}/pending`,
+    { params }
+  );
+}
+
+approve(id: number): Observable<Announcement> {
+  return this.http.patch<Announcement>(
+    `${this.apiUrl}/${id}/approve`,
+    {}
+  );
+}
+
+reject(id: number): Observable<Announcement> {
+  return this.http.patch<Announcement>(
+    `${this.apiUrl}/${id}/reject`,
+    {}
+  );
+}
+
 }
